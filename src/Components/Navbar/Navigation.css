@@ -1,18 +1,18 @@
 ul li a.active {
-  color: #d99904 !important;
+  color: #65B9ED !important;
   background: none !important;
   font-weight: 700;
   text-decoration: underline;
 }
 ul li a.active:hover {
-  color: #d99904 !important;
+  color: #1D84B5 !important;
   font-weight: 700;
 }
 
 ul li a:hover {
   background: none !important;
   font-weight: 500;
-  color: #ffffff !important;
+  color: #1D84B5 !important;
 }
 
 ul li a {

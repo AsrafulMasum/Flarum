@@ -10,7 +10,7 @@ const SocialLogin = () => {
   const axiosPublic = useAxiosPublic();
 
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
 
   const handleGoogle = async () => {
     try {
@@ -24,14 +24,27 @@ const SocialLogin = () => {
         axiosPublic
           .put("/users", user)
           .then((res) => {
-            if (res?.data?.upsertedCount || res?.data?.modifiedCount || res?.data?.exists) {
+            if (
+              res?.data?.upsertedCount ||
+              res?.data?.modifiedCount ||
+              res?.data?.exists
+            ) {
               toast.success("Log In Successful.");
-              navigate(location?.state?.from?.pathname ? location?.state?.from?.pathname : "/");
+              navigate(
+                location?.state?.from?.pathname
+                  ? location?.state?.from?.pathname
+                  : "/"
+              );
             }
           })
           .catch((err) => {
             console.log(err);
           });
+        navigate(
+          location?.state?.from?.pathname
+            ? location?.state?.from?.pathname
+            : "/"
+        );
       });
     } catch (error) {
       console.log(error);
@@ -50,7 +63,11 @@ const SocialLogin = () => {
         axiosPublic
           .put("/users", user)
           .then((res) => {
-            if (res?.data?.upsertedCount || res?.data?.modifiedCount || res?.data?.exists) {
+            if (
+              res?.data?.upsertedCount ||
+              res?.data?.modifiedCount ||
+              res?.data?.exists
+            ) {
               toast.success("Log In Successful.");
               navigate("/");
             }

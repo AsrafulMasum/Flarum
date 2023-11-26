@@ -3,7 +3,7 @@ import "./Navigation.css";
 import LayoutContainer from "../../Layout/LayoutComponent/LayoutContainer";
 import UserDropdown from "./UserDropdown";
 import useAuth from "../../Hooks/useAuth";
-
+import logo from '/favicon.png'
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -26,7 +26,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="w-full fixed bg-[#1515157F] z-50">
+    <div className="w-full fixed bg-[#27485CFC] z-50">
       <LayoutContainer>
         <div className="navbar">
           <div className="flex-none lg:hidden">
@@ -50,11 +50,10 @@ const Navbar = () => {
               </svg>
             </label>
           </div>
-          <p className="flex-1 px-2 mx-2 text-white font-[Cinzel] font-bold leading-none">
-            BISTRO BOSS
-            <br />
-            Restaurant
-          </p>
+          <div className="flex-1 flex items-center gap-4 px-2 mx-2 text-2xl text-white font-bold leading-none">
+            <img className="w-12" src={logo} alt="LOGO" />
+            <p>Flarum</p>
+          </div>
           <div className="flex-none hidden lg:block">
             <ul className="menu menu-horizontal">
               {/* Navbar menu content here */}
@@ -67,7 +66,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/logIn"
-                className="btn btn-sm bg-nav-color border-none text-white px-6 hover:bg-text-primary"
+                className="btn btn-sm bg-primary border-none text-white px-6 hover:bg-textColor"
               >
                 LogIn
               </Link>

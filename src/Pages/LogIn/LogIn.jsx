@@ -6,6 +6,8 @@ import useAuth from "../../Hooks/useAuth";
 import { useState } from "react";
 import SocialLogin from "../../Components/Shared/SocialLogin";
 import { ImSpinner9 } from "react-icons/im";
+import Lottie from "lottie-react";
+import authGIF from "../../assets/authGIF.json"
 
 const LogIn = () => {
   const [show, setShow] = useState(false);
@@ -38,11 +40,11 @@ const LogIn = () => {
   };
 
   return (
-    <div className="min-h-screen py-[10vh]">
-      <div className="max-w-screen-xl mx-auto min-h-[80vh] flex flex-col md:flex-row justify-center items-center gap-10 py-10">
-        {/* <div className="flex-1">
-          <img src={img2} alt="IMAGE" />
-        </div> */}
+    <div className="min-h-screen">
+      <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row justify-center items-center gap-10">
+        <div className="flex-1">
+          <Lottie animationData={authGIF}></Lottie>
+        </div>
         <div className="flex-1">
           <form onSubmit={handleSubmit(onSubmit)} className="w-2/3 mx-auto">
             <input

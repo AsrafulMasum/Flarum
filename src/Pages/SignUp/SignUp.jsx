@@ -8,12 +8,15 @@ import useAuth from "../../Hooks/useAuth";
 import { useState } from "react";
 import SocialLogin from "../../Components/Shared/SocialLogin";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import authGIF from "../../assets/authGIF.json";
+import Lottie from "lottie-react";
 
 const imgHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgHostingKey}`;
 
 const SignUp = () => {
-  const { signUpWithEmail, updateUser, logOut, loading, setLoading } = useAuth();
+  const { signUpWithEmail, updateUser, logOut, loading, setLoading } =
+    useAuth();
   const axiosPublic = useAxiosPublic();
   const [show, setShow] = useState(false);
 
@@ -26,7 +29,7 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    setLoading(true)
+    setLoading(true);
     const imageFile = { image: data?.image[0] };
     const res = await axiosPublic.post(imgHostingApi, imageFile, {
       headers: {
@@ -52,10 +55,7 @@ const SignUp = () => {
                 axiosPublic
                   .put("/users", user)
                   .then((res) => {
-                    if (
-                      res?.data?.upsertedCount ||
-                      res?.data?.modifiedCount
-                    ) {
+                    if (res?.data?.upsertedCount || res?.data?.modifiedCount) {
                       try {
                         logOut().then(() => {
                           navigate("/logIn");
@@ -82,17 +82,11 @@ const SignUp = () => {
 
   return (
     <div>
-      <div
-        className="min-h-screen py-[10vh]"
-        
-      >
-        <div
-          className="max-w-screen-xl mx-auto min-h-[80vh] flex flex-col md:flex-row-reverse justify-center items-center gap-10 py-10"
-          
-        >
-          {/* <div className="flex-1">
-            <img src={img2} alt="IMAGE" />
-          </div> */}
+      <div className="min-h-screen">
+        <div className="max-w-screen-xl mx-auto min-h-[80vh] flex flex-col md:flex-row-reverse justify-center items-center gap-10">
+          <div className="flex-1">
+            <Lottie animationData={authGIF}></Lottie>
+          </div>
           <div className="flex-1">
             <form onSubmit={handleSubmit(onSubmit)} className="w-2/3 mx-auto">
               <input
