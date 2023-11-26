@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import defaultUser from "../../assets/user.png";
 
 
 const UserDropdown = () => {
@@ -14,7 +15,7 @@ const UserDropdown = () => {
       <div className="dropdown dropdown-end">
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full">
-            <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
+            <img alt="Tailwind CSS Navbar component" src={user?.photoURL ? user?.photoURL : defaultUser} />
           </div>
         </label>
         <ul
