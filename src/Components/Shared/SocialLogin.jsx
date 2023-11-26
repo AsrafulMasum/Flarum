@@ -24,6 +24,7 @@ const SocialLogin = () => {
         axiosPublic
           .put("/users", user)
           .then((res) => {
+            console.log(res);
             if (
               res?.data?.upsertedCount ||
               res?.data?.modifiedCount ||
@@ -40,11 +41,6 @@ const SocialLogin = () => {
           .catch((err) => {
             console.log(err);
           });
-        navigate(
-          location?.state?.from?.pathname
-            ? location?.state?.from?.pathname
-            : "/"
-        );
       });
     } catch (error) {
       console.log(error);
@@ -69,7 +65,11 @@ const SocialLogin = () => {
               res?.data?.exists
             ) {
               toast.success("Log In Successful.");
-              navigate("/");
+              navigate(
+                location?.state?.from?.pathname
+                  ? location?.state?.from?.pathname
+                  : "/"
+              );
             }
           })
           .catch((err) => {

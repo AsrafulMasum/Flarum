@@ -3,7 +3,8 @@ import "./Navigation.css";
 import LayoutContainer from "../../Layout/LayoutComponent/LayoutContainer";
 import UserDropdown from "./UserDropdown";
 import useAuth from "../../Hooks/useAuth";
-import logo from '/favicon.png'
+import logo from "/favicon.png";
+import { IoMdNotifications } from "react-icons/io";
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -14,13 +15,12 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/menus">Menus</NavLink>
+        <NavLink to="/membership">Membership</NavLink>
       </li>
       <li>
-        <NavLink to="/shop">Shop</NavLink>
-      </li>
-      <li>
-        <NavLink to="/contact">Contact</NavLink>
+        <NavLink to="/notification">
+          <IoMdNotifications className="text-2xl"></IoMdNotifications>
+        </NavLink>
       </li>
     </>
   );
@@ -60,15 +60,15 @@ const Navbar = () => {
               {navLinks}
             </ul>
           </div>
-          <div>
+          <div className="ml-4">
             {user ? (
               <UserDropdown></UserDropdown>
             ) : (
               <Link
                 to="/logIn"
-                className="btn btn-sm bg-primary border-none text-white px-6 hover:bg-textColor"
+                className="btn btn-sm btn-outline text-white px-6 hover:bg-textColor"
               >
-                LogIn
+                Join Us
               </Link>
             )}
           </div>

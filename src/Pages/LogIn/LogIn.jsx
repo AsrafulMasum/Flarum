@@ -8,35 +8,46 @@ import SocialLogin from "../../Components/Shared/SocialLogin";
 import { ImSpinner9 } from "react-icons/im";
 import Lottie from "lottie-react";
 import authGIF from "../../assets/authGIF.json"
+import { toast } from "react-toastify";
 
 const LogIn = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { logInWithEmail, loading } = useAuth();
+  const { logInWithEmail, loading, setLoading } = useAuth();
 
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
     try {
       logInWithEmail(data?.email, data?.password).then(() => {
+        toast.success("Log In Successful.")
         navigate(
           location?.state?.from?.pathname
             ? location?.state?.from?.pathname
             : "/"
         );
-      });
+      })
+      .catch(err => {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${err?.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setLoading(false)
+      })
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: `${error?.message}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
-
-    Swal.fire({
-      position: "top-end",
-      icon: "error",
-      title: "Captcha Does Not Match",
-      showConfirmButton: false,
-      timer: 1500,
-    });
   };
 
   return (

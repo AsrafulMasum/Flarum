@@ -124,8 +124,6 @@ const SignUp = () => {
                 <input
                   {...register("password", {
                     required: true,
-                    pattern:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/,
                   })}
                   aria-invalid={errors.password ? "true" : "false"}
                   className="w-full h-11 outline-none px-5 mt-4 bg-white border border-[#D0D0D0] rounded"
@@ -133,12 +131,6 @@ const SignUp = () => {
                   placeholder="Password"
                   required
                 />
-                {errors?.password?.type === "pattern" && (
-                  <p className="mt-2 mx-1 text-red-600">
-                    Password must have one uppercase, one lowercase, one special
-                    characters & one number
-                  </p>
-                )}
                 {errors?.password?.type === "required" && (
                   <p className="mt-2 mx-1 text-red-600">
                     Password must have to set.
