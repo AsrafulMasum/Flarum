@@ -14,6 +14,11 @@ const Navbar = () => {
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
+      {/* {!user?.badge === "gold" && (
+        <li>
+          <NavLink to="/membership">Membership</NavLink>
+        </li>
+      )} */}
       <li>
         <NavLink to="/membership">Membership</NavLink>
       </li>

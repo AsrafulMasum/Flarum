@@ -67,9 +67,7 @@ const AuthProvider = ({ children }) => {
           .post("/jwt", loggedInUser, {
             withCredentials: true,
           })
-          .then((res) => {
-            console.log(res.data);
-          })
+          .then(() => {})
           .catch((err) => {
             console.log(err);
           });
@@ -78,9 +76,7 @@ const AuthProvider = ({ children }) => {
           .post("/logout", loggedInUser, {
             withCredentials: true,
           })
-          .then((res) => {
-            console.log(res.data);
-          })
+          .then(() => {})
           .catch((err) => {
             console.log(err);
           });
@@ -88,7 +84,7 @@ const AuthProvider = ({ children }) => {
     });
     return () => unSubscribe();
   }, [user, axiosPublic]);
-
+  console.log(user);
   const authData = {
     user,
     loading,

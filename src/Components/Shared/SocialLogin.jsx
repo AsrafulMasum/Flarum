@@ -20,11 +20,11 @@ const SocialLogin = () => {
           name: res?.user?.displayName,
           photoURL: res?.user?.photoURL,
           role: "user",
+          badge: "bronze",
         };
         axiosPublic
           .put("/users", user)
           .then((res) => {
-            console.log(res);
             if (
               res?.data?.upsertedCount ||
               res?.data?.modifiedCount ||
@@ -55,6 +55,7 @@ const SocialLogin = () => {
           name: res?.user?.displayName,
           photoURL: res?.user?.photoURL,
           role: "user",
+          badge: "bronze",
         };
         axiosPublic
           .put("/users", user)

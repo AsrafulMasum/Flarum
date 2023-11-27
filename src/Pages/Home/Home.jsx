@@ -1,11 +1,13 @@
-import TagsCard from "../../Components/Shared/TagsCard/TagsCard";
+import PostCard from "../../Components/Shared/PostCard/PostCard";
 import Banner from "./Banner/Banner";
+import Tags from "./Tags/Tags";
 
 const Home = () => {
   return (
     <div>
       <Banner></Banner>
-      <TagsCard></TagsCard>
+      <PostCard></PostCard>
+      <Tags></Tags>
     </div>
   );
 };

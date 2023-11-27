@@ -7,6 +7,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import UserDashboard from "../Pages/Dashboard/UserDashboard.jsx/UserDashboard";
 import PrivateRoutes from "./PrivateRoutes";
+import Membership from "../Pages/Membership/Membership";
 
 const MainRoutes = createBrowserRouter([
   {
@@ -17,6 +18,14 @@ const MainRoutes = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
+      },
+      {
+        path: "membership",
+        element: (
+          <PrivateRoutes>
+            <Membership></Membership>
+          </PrivateRoutes>
+        ),
       },
     ],
   },

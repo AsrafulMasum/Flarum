@@ -51,6 +51,7 @@ const SignUp = () => {
                   name: data?.name,
                   photoURL: photo,
                   role: "user",
+                  badge: "bronze",
                 };
                 axiosPublic
                   .put("/users", user)
