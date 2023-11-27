@@ -84,7 +84,7 @@ const AuthProvider = ({ children }) => {
     });
     return () => unSubscribe();
   }, [user, axiosPublic]);
-  console.log(user);
+
   const authData = {
     user,
     loading,

@@ -8,6 +8,8 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import UserDashboard from "../Pages/Dashboard/UserDashboard.jsx/UserDashboard";
 import PrivateRoutes from "./PrivateRoutes";
 import Membership from "../Pages/Membership/Membership";
+import AddPost from "../Pages/Dashboard/AddPost/addPost";
+import MyPosts from "../Pages/Dashboard/MyPosts/MyPosts";
 
 const MainRoutes = createBrowserRouter([
   {
@@ -45,22 +47,22 @@ const MainRoutes = createBrowserRouter([
           </PrivateRoutes>
         ),
       },
-      // {
-      //   path: "payment",
-      //   element: (
-      //     <PrivateRoutes>
-      //       <Payment></Payment>
-      //     </PrivateRoutes>
-      //   ),
-      // },
-      // {
-      //   path: "payments/history",
-      //   element: (
-      //     <PrivateRoutes>
-      //       <PaymentsHistory></PaymentsHistory>
-      //     </PrivateRoutes>
-      //   ),
-      // },
+      {
+        path: "addPost",
+        element: (
+          <PrivateRoutes>
+            <AddPost></AddPost>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "myPosts",
+        element: (
+          <PrivateRoutes>
+            <MyPosts></MyPosts>
+          </PrivateRoutes>
+        ),
+      },
     ],
   },
   {
