@@ -26,6 +26,7 @@ const AddPost = () => {
       tags: data?.tags,
       upVote: 0,
       downVote: 0,
+      commentsCount: 0,
       date: new Date(),
     };
     const res = await axiosSecure.post("/posts", postInfo);

@@ -3,7 +3,7 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useLoadSecureData = (url) => {
   const axiosSecure = useAxiosSecure();
-  const { data, refetch } = useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ["secureData", url],
     queryFn: async () => {
       try {
@@ -14,7 +14,7 @@ const useLoadSecureData = (url) => {
       }
     },
   });
-  return { data, refetch };
+  return { data, refetch, isLoading };
 };
 
 export default useLoadSecureData;

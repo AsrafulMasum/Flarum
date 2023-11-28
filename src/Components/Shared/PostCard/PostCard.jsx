@@ -1,19 +1,53 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
-import user from "../../../assets/user.png"
 import { BiLike, BiSolidLike, BiDislike, BiSolidDislike } from "react-icons/bi";
 import { GoCommentDiscussion } from "react-icons/go";
 import { Link } from "react-router-dom";
+import useLoadPublicData from "../../../Hooks/useLoadPublicData";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
-const PostCard = () => {
-  const [isLiked, setIsLiked] = useState(true);
+const PostCard = ({ post, refetch }) => {
+  const [isLiked, setIsLiked] = useState(false);
   const [isDisLiked, setIsDisLiked] = useState(false);
 
-  const handleLike = () => {
+  const axiosPublic = useAxiosPublic();
+  const postURL = `/posts/${post?._id}`;
+  const { data: voteCount } = useLoadPublicData(postURL);
+
+  const handleLike = async () => {
     setIsLiked(!isLiked);
+    let upCount;
+    if (!isLiked) {
+      upCount = {
+        upVote: voteCount?.upVote + 1,
+      };
+    } else {
+      upCount = {
+        upVote: voteCount?.upVote,
+      };
+    }
+    const res = await axiosPublic.put(`/posts/${post?._id}`, upCount);
+    if (res.data.success) {
+      refetch();
+    }
   };
 
-  const handleDisLike = () => {
+  const handleDisLike = async () => {
     setIsDisLiked(!isDisLiked);
+    let downCount;
+    if (!isDisLiked) {
+      downCount = {
+        downVote: voteCount?.downVote + 1,
+      };
+    } else {
+      downCount = {
+        downVote: voteCount?.downVote,
+      };
+    }
+    const res = await axiosPublic.put(`/posts/${post?._id}`, downCount);
+    if (res.data.success) {
+      refetch();
+    }
   };
 
   return (
@@ -21,15 +55,19 @@ const PostCard = () => {
       <div className="max-w-sm my-10 bg-white border rounded shadow-md hover:shadow-2xl mx-auto duration-500">
         <div className="p-5">
           <div>
-            <div className="flex justify-between items-center gap-4 my-4">
-              <img className="w-20" src={user} alt="User" />
-              <Link className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                Noteworthy technology acquisitions 2021
+            <div className="flex items-center gap-4 my-4">
+              <img
+                className="w-20 h-20 object-cover rounded-full"
+                src={post?.photoURL}
+                alt="User"
+              />
+              <Link className="text-2xl font-bold tracking-tight text-gray-900">
+                {post?.title}
               </Link>
             </div>
             <div className="flex justify-between items-center text-lg">
-              <Link>tags</Link>
-              <p>time</p>
+              <Link>{post?.tags}</Link>
+              <p>{post?.date.split("T")[0]}</p>
             </div>
           </div>
 
@@ -47,7 +85,7 @@ const PostCard = () => {
                     </div>
                   )}
                 </div>
-                <div>4</div>
+                <div>{post?.upVote}</div>
               </div>
 
               <div className="flex items-center gap-2">
@@ -65,11 +103,11 @@ const PostCard = () => {
                     </div>
                   )}
                 </div>
-                <div>1</div>
+                <div>{post?.downVote}</div>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <p>5</p>
+              <p>{post?.commentsCount}</p>
               <GoCommentDiscussion className="text-2xl cursor-pointer"></GoCommentDiscussion>
             </div>
           </div>
@@ -80,3 +118,8 @@ const PostCard = () => {
 };
 
 export default PostCard;
+
+PostCard.propTypes = {
+  post: PropTypes.object,
+  refetch: PropTypes.func,
+};
