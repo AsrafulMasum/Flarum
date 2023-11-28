@@ -7,9 +7,13 @@ import SignUp from "../Pages/SignUp/SignUp";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import UserDashboard from "../Pages/Dashboard/UserDashboard.jsx/UserDashboard";
 import PrivateRoutes from "./PrivateRoutes";
+import AdminRoutes from "./AdminRoutes";
 import Membership from "../Pages/Membership/Membership";
 import AddPost from "../Pages/Dashboard/AddPost/addPost";
 import MyPosts from "../Pages/Dashboard/MyPosts/MyPosts";
+import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
+import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
+import MakeAnnouncement from "../Pages/Dashboard/MakeAnnouncement/MakeAnnouncement";
 
 const MainRoutes = createBrowserRouter([
   {
@@ -40,7 +44,7 @@ const MainRoutes = createBrowserRouter([
     ),
     children: [
       {
-        index: true,
+        path: "user",
         element: (
           <PrivateRoutes>
             <UserDashboard></UserDashboard>
@@ -60,6 +64,37 @@ const MainRoutes = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <MyPosts></MyPosts>
+          </PrivateRoutes>
+        ),
+      },
+      // admin route
+      {
+        path: "admin",
+        element: (
+          <PrivateRoutes>
+            <AdminRoutes>
+              <AdminDashboard></AdminDashboard>
+            </AdminRoutes>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "manageUsers",
+        element: (
+          <PrivateRoutes>
+            <AdminRoutes>
+              <ManageUsers></ManageUsers>
+            </AdminRoutes>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "makeAnnouncement",
+        element: (
+          <PrivateRoutes>
+            <AdminRoutes>
+              <MakeAnnouncement></MakeAnnouncement>
+            </AdminRoutes>
           </PrivateRoutes>
         ),
       },

@@ -9,7 +9,6 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 const PostCard = ({ post, refetch }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisLiked, setIsDisLiked] = useState(false);
-
   const axiosPublic = useAxiosPublic();
   const postURL = `/posts/${post?._id}`;
   const { data: voteCount } = useLoadPublicData(postURL);
@@ -34,17 +33,17 @@ const PostCard = ({ post, refetch }) => {
 
   const handleDisLike = async () => {
     setIsDisLiked(!isDisLiked);
-    let downCount;
+    let downCountInfo;
     if (!isDisLiked) {
-      downCount = {
+      downCountInfo = {
         downVote: voteCount?.downVote + 1,
       };
     } else {
-      downCount = {
+      downCountInfo = {
         downVote: voteCount?.downVote,
       };
     }
-    const res = await axiosPublic.put(`/posts/${post?._id}`, downCount);
+    const res = await axiosPublic.put(`/posts/${post?._id}`, downCountInfo);
     if (res.data.success) {
       refetch();
     }
@@ -52,12 +51,12 @@ const PostCard = ({ post, refetch }) => {
 
   return (
     <div>
-      <div className="max-w-sm my-10 bg-white border rounded shadow-md hover:shadow-2xl mx-auto duration-500">
+      <div className="my-10 bg-white border rounded shadow-md hover:shadow-2xl mx-auto duration-500">
         <div className="p-5">
           <div>
             <div className="flex items-center gap-4 my-4">
               <img
-                className="w-20 h-20 object-cover rounded-full"
+                className="w-10 h-10 object-cover rounded-full"
                 src={post?.photoURL}
                 alt="User"
               />

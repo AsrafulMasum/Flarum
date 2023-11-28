@@ -1,10 +1,14 @@
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import defaultUser from "../../assets/user.png";
+import useLoadSecureData from "../../Hooks/useLoadSecureData"
 
-
-const UserDropdown = () => {
+const UserDropdown = ({ badge }) => {
   const { user, logOut } = useAuth();
+
+  const isAdminURL = `/users/admin/${user?.email}`
+  const {data: isAdmin} = useLoadSecureData(isAdminURL)
 
   const handleLogout = () => {
     logOut().then();
@@ -15,21 +19,33 @@ const UserDropdown = () => {
       <div className="dropdown dropdown-end">
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full">
-            <img alt="Tailwind CSS Navbar component" src={user?.photoURL ? user?.photoURL : defaultUser} />
+            <img
+              alt="Tailwind CSS Navbar component"
+              src={user?.photoURL ? user?.photoURL : defaultUser}
+            />
           </div>
         </label>
         <ul
           tabIndex={0}
           className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-slate-400 rounded-box w-52"
         >
-
-            <p className="flex justify-between text-black px-3 py-1">
-              {user?.displayName.split(" ")[0]}
-              <span className="badge">New</span>
-            </p>
+          <p className="flex justify-between text-black px-3 py-1">
+            {user?.displayName.split(" ")[0]}
+            <span
+              className={
+                badge === "bronze"
+                  ? "badge"
+                  : "badge bg-orange-500 border-none text-white"
+              }
+            >
+              {badge === "bronze" ? "Bronze" : "Gold"}
+            </span>
+          </p>
 
           <li>
-            <Link to="/dashboard" className="text-black">Dashboard</Link>
+            <Link to={isAdmin?.admin ? "/dashboard/admin" : "/dashboard/user"} className="text-black">
+              Dashboard
+            </Link>
           </li>
           <li>
             <button
@@ -46,3 +62,7 @@ const UserDropdown = () => {
 };
 
 export default UserDropdown;
+
+UserDropdown.propTypes = {
+  badge: PropTypes.string,
+};

@@ -1,13 +1,12 @@
-import PostCard from "../../../Components/Shared/PostCard/PostCard";
 import useAuth from "../../../Hooks/useAuth";
 import useLoadSecureData from "../../../Hooks/useLoadSecureData";
 
-const UserDashboard = () => {
+
+const AdminDashboard = () => {
+
   const { user } = useAuth();
   const userURL = `/users/${user?.email}`;
   const { data: dbUser } = useLoadSecureData(userURL);
-  const postURL = `/posts-by-email/${user?.email}`
-  const { data: userPost, refetch } = useLoadSecureData(postURL);
 
   return (
     <div>
@@ -35,13 +34,8 @@ const UserDashboard = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-4">
-        {
-          userPost?.slice(0, 3)?.map(post => <PostCard key={post?._id} post={post} refetch={refetch}></PostCard>)
-        }
-      </div>
     </div>
   );
 };
 
-export default UserDashboard;
+export default AdminDashboard;

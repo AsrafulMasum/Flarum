@@ -5,26 +5,34 @@ import logo from "/favicon.png";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import LayoutContainer from "../../Layout/LayoutComponent/LayoutContainer";
+import useLoadPublicData from "../../Hooks/useLoadPublicData";
 
 const Navbar = () => {
   const { user } = useAuth();
+  const userURL = `/users/${user?.email}`;
+  const { data: dbUser } = useLoadPublicData(userURL);
+
+  const notificationCountURL = "/announcement/count";
+  const { data: notificationCount } = useLoadPublicData(notificationCountURL);
 
   const navLinks = (
     <>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
-      {/* {!user?.badge === "gold" && (
+      {dbUser?.badge === "bronze" && (
         <li>
           <NavLink to="/membership">Membership</NavLink>
         </li>
-      )} */}
+      )}
       <li>
-        <NavLink to="/membership">Membership</NavLink>
-      </li>
-      <li>
-        <NavLink to="/notification">
+        <NavLink className="relative" to="/notification">
           <IoMdNotifications className="text-2xl"></IoMdNotifications>
+          {notificationCount?.count && (
+            <p className="absolute top-0 right-4 rounded-full bg-red-500 px-1">
+              {notificationCount?.count}
+            </p>
+          )}
         </NavLink>
       </li>
     </>
@@ -68,7 +76,7 @@ const Navbar = () => {
             </div>
             <div className="ml-4">
               {user ? (
-                <UserDropdown></UserDropdown>
+                <UserDropdown badge={dbUser?.badge}></UserDropdown>
               ) : (
                 <Link
                   to="/logIn"

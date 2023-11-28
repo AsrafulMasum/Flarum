@@ -4,7 +4,7 @@ import useAxiosPublic from "./useAxiosPublic";
 const useLoadPublicData = (url) => {
   const axiosPublic = useAxiosPublic();
 
-  const { data, refetch } = useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ["PublicData", url],
     queryFn: async () => {
       try {
@@ -15,7 +15,7 @@ const useLoadPublicData = (url) => {
       }
     },
   });
-  return { data, refetch };
+  return { data, refetch, isLoading };
 };
 
 export default useLoadPublicData;
