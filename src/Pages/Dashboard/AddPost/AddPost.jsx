@@ -20,7 +20,7 @@ const AddPost = () => {
   const postURL = `/posts-by-email/${user?.email}`;
   const { data: userPost, isLoading } = useLoadSecureData(postURL);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const navigate = useNavigate();
 
@@ -32,15 +32,17 @@ const AddPost = () => {
       title: data?.title,
       description: data?.description,
       tags: data?.tags,
-      upVote: 0,
-      downVote: 0,
-      commentsCount: 0,
+      upVote: [],
+      downVote: [],
+      millisecond: Date.now(),
       date: new Date(),
+      comments: [],
     };
     const res = await axiosSecure.post("/posts", postInfo);
     if (res?.data?.success) {
       toast.success("Post Added.");
-      navigate("/dashboard");
+      reset()
+      navigate("/");
     }
   };
 
@@ -50,12 +52,17 @@ const AddPost = () => {
 
   return (
     <div>
-      {userPost?.length >= 5 ? (
+      {(dbUser?.badge === "bronze" && userPost?.length >= 5) ? (
         <div className="min-h-screen flex flex-col justify-center items-center gap-10">
           <p className="text-3xl text-textColor">
             Please get membership to add more post.
           </p>
-          <Link to="/membership" className="btn btn-wide text-white bg-primary hover:bg-secondary hover:text-textColor duration-500">Become a member</Link>
+          <Link
+            to="/membership"
+            className="btn btn-wide text-white bg-primary hover:bg-secondary hover:text-textColor duration-500"
+          >
+            Become a member
+          </Link>
         </div>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto">

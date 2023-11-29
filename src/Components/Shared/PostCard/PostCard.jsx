@@ -1,57 +1,13 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
-import { BiLike, BiSolidLike, BiDislike, BiSolidDislike } from "react-icons/bi";
+import { BiLike, BiDislike } from "react-icons/bi";
 import { GoCommentDiscussion } from "react-icons/go";
 import { Link } from "react-router-dom";
-import useLoadPublicData from "../../../Hooks/useLoadPublicData";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
-const PostCard = ({ post, refetch }) => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [isDisLiked, setIsDisLiked] = useState(false);
-  const axiosPublic = useAxiosPublic();
-  const postURL = `/posts/${post?._id}`;
-  const { data: voteCount } = useLoadPublicData(postURL);
-
-  const handleLike = async () => {
-    setIsLiked(!isLiked);
-    let upCount;
-    if (!isLiked) {
-      upCount = {
-        upVote: voteCount?.upVote + 1,
-      };
-    } else {
-      upCount = {
-        upVote: voteCount?.upVote,
-      };
-    }
-    const res = await axiosPublic.put(`/posts/${post?._id}`, upCount);
-    if (res.data.success) {
-      refetch();
-    }
-  };
-
-  const handleDisLike = async () => {
-    setIsDisLiked(!isDisLiked);
-    let downCountInfo;
-    if (!isDisLiked) {
-      downCountInfo = {
-        downVote: voteCount?.downVote + 1,
-      };
-    } else {
-      downCountInfo = {
-        downVote: voteCount?.downVote,
-      };
-    }
-    const res = await axiosPublic.put(`/posts/${post?._id}`, downCountInfo);
-    if (res.data.success) {
-      refetch();
-    }
-  };
+const PostCard = ({ post }) => {
 
   return (
-    <div>
-      <div className="my-10 bg-white border rounded shadow-md hover:shadow-2xl mx-auto duration-500">
+    <Link to={`/post/${post?._id}`}>
+      <div className="bg-white border rounded shadow-md hover:shadow-2xl mx-auto duration-500 h-full">
         <div className="p-5">
           <div>
             <div className="flex items-center gap-4 my-4">
@@ -60,12 +16,12 @@ const PostCard = ({ post, refetch }) => {
                 src={post?.photoURL}
                 alt="User"
               />
-              <Link className="text-2xl font-bold tracking-tight text-gray-900">
+              <p className="text-xl font-bold tracking-tight text-gray-900">
                 {post?.title}
-              </Link>
+              </p>
             </div>
             <div className="flex justify-between items-center text-lg">
-              <Link>{post?.tags}</Link>
+              <p>{post?.tags}</p>
               <p>{post?.date.split("T")[0]}</p>
             </div>
           </div>
@@ -73,46 +29,27 @@ const PostCard = ({ post, refetch }) => {
           <div className="flex items-center justify-between gap-4 mt-4 border-y p-2">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <div className="text-2xl cursor-pointer" onClick={handleLike}>
-                  {isLiked ? (
-                    <div>
-                      <BiSolidLike className="text-primary"></BiSolidLike>
-                    </div>
-                  ) : (
-                    <div>
-                      <BiLike></BiLike>
-                    </div>
-                  )}
+                <div className="text-2xl">
+                  <BiLike></BiLike>
                 </div>
-                <div>{post?.upVote}</div>
+                <div>{post?.upVote?.length}</div>
               </div>
 
               <div className="flex items-center gap-2">
-                <div
-                  className="text-2xl cursor-pointer"
-                  onClick={handleDisLike}
-                >
-                  {isDisLiked ? (
-                    <div>
-                      <BiSolidDislike className="text-primary"></BiSolidDislike>
-                    </div>
-                  ) : (
-                    <div>
-                      <BiDislike></BiDislike>
-                    </div>
-                  )}
+                <div className="text-2xl">
+                  <BiDislike></BiDislike>
                 </div>
-                <div>{post?.downVote}</div>
+                <div>{post?.downVote?.length}</div>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <p>{post?.commentsCount}</p>
-              <GoCommentDiscussion className="text-2xl cursor-pointer"></GoCommentDiscussion>
+              <p>{post?.comments?.length}</p>
+              <GoCommentDiscussion className="text-2xl"></GoCommentDiscussion>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -2,11 +2,12 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 const MakeAnnouncement = () => {
   const {user} = useAuth()
-
+  const navigate = useNavigate()
   const axiosSecure = useAxiosSecure()
 
   const { register, handleSubmit, reset } = useForm();
@@ -22,6 +23,7 @@ const MakeAnnouncement = () => {
     if(res.data.success){
       toast.success("Announcement has made.")
       reset()
+      navigate("/")
     }
   }
 

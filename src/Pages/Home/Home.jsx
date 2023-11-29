@@ -5,7 +5,7 @@ import Tags from "./Tags/Tags";
 
 const Home = () => {
   return (
-    <div>
+    <div className="mb-20 space-y-10">
       <Banner></Banner>
       <Tags></Tags>
       <Announcements></Announcements>

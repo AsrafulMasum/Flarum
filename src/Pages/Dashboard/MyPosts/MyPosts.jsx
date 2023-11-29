@@ -49,11 +49,11 @@ const MyPosts = () => {
                 <td className="flex gap-4">
                   <div className="flex items-center gap-1">
                     <BiSolidLike className="text-primary"></BiSolidLike>
-                    <p>{post?.upVote}</p>
+                    <p>{post?.upVote?.length}</p>
                   </div>
                   <div className="flex items-center gap-1">
                     <BiSolidDislike className="text-primary"></BiSolidDislike>
-                    <p>{post?.downVote}</p>
+                    <p>{post?.downVote?.length}</p>
                   </div>
                 </td>
 

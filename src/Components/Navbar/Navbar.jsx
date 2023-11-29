@@ -29,7 +29,7 @@ const Navbar = () => {
         <NavLink className="relative" to="/notification">
           <IoMdNotifications className="text-2xl"></IoMdNotifications>
           {notificationCount?.count && (
-            <p className="absolute top-0 right-4 rounded-full bg-red-500 px-1">
+            <p className="absolute top-0 right-3 rounded-full bg-red-500 px-[6px]">
               {notificationCount?.count}
             </p>
           )}
@@ -39,7 +39,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="w-full fixed bg-[#27485CFC] z-50">
+    <div className="w-full fixed bg-[#27485C] bg-opacity-90 z-50">
       <LayoutContainer>
         <div className="w-full navbar px-0">
           <div className="flex-none lg:hidden">
@@ -76,7 +76,7 @@ const Navbar = () => {
             </div>
             <div className="ml-4">
               {user ? (
-                <UserDropdown badge={dbUser?.badge}></UserDropdown>
+                <UserDropdown></UserDropdown>
               ) : (
                 <Link
                   to="/logIn"

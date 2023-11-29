@@ -4,7 +4,7 @@ import useAuth from "../../Hooks/useAuth";
 import defaultUser from "../../assets/user.png";
 import useLoadSecureData from "../../Hooks/useLoadSecureData"
 
-const UserDropdown = ({ badge }) => {
+const UserDropdown = () => {
   const { user, logOut } = useAuth();
 
   const isAdminURL = `/users/admin/${user?.email}`
@@ -31,15 +31,6 @@ const UserDropdown = ({ badge }) => {
         >
           <p className="flex justify-between text-black px-3 py-1">
             {user?.displayName.split(" ")[0]}
-            <span
-              className={
-                badge === "bronze"
-                  ? "badge"
-                  : "badge bg-orange-500 border-none text-white"
-              }
-            >
-              {badge === "bronze" ? "Bronze" : "Gold"}
-            </span>
           </p>
 
           <li>

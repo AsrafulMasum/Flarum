@@ -1,4 +1,3 @@
-import { IoMdNotifications } from "react-icons/io";
 import { Link } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import useLoadSecureData from "../../../Hooks/useLoadSecureData";
@@ -27,10 +26,6 @@ const SideBar = () => {
         )}
         <div className="divider"></div>
         <Link to="/">Home</Link>
-        <Link className="flex " to="/notification">
-          Notification
-          <IoMdNotifications className="text-2xl"></IoMdNotifications>
-        </Link>
       </div>
     </div>
   );

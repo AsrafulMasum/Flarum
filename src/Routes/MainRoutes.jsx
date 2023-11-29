@@ -14,6 +14,8 @@ import MyPosts from "../Pages/Dashboard/MyPosts/MyPosts";
 import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import MakeAnnouncement from "../Pages/Dashboard/MakeAnnouncement/MakeAnnouncement";
+import SearchPosts from "../Pages/Home/SearchPosts/SearchPosts";
+import PostDetails from "../Components/Shared/PostDetails/PostDetails";
 
 const MainRoutes = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ const MainRoutes = createBrowserRouter([
           </PrivateRoutes>
         ),
       },
+      {
+        path: "searchPosts",
+        element: <SearchPosts></SearchPosts>
+      },
+      {
+        path: "post/:id",
+        element: <PostDetails></PostDetails>
+      }
     ],
   },
   {
