@@ -3,6 +3,7 @@ import useAuth from "../../../Hooks/useAuth";
 import useLoadSecureData from "../../../Hooks/useLoadSecureData";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const MyPosts = () => {
   const { user } = useAuth();
@@ -58,7 +59,7 @@ const MyPosts = () => {
                 </td>
 
                 <td>
-                  <button className="btn btn-xs text-white bg-textColor hover:text-textColor duration-300">Comments</button>
+                  <Link to={`/dashboard/postComments/${post?._id}`} className="btn btn-xs text-white bg-textColor hover:text-textColor duration-300">Comments</Link>
                 </td>
 
                 <th>

@@ -2,14 +2,18 @@ import PropTypes from "prop-types";
 import { BiLike, BiDislike } from "react-icons/bi";
 import { GoCommentDiscussion } from "react-icons/go";
 import { Link } from "react-router-dom";
+import useLoadSecureData from "../../../Hooks/useLoadSecureData";
 
 const PostCard = ({ post }) => {
+
+  const commentsByPostIdURL = `/find-comments-by-postId?postId=${post?._id}`
+  const { data: comments } = useLoadSecureData(commentsByPostIdURL);
 
   return (
     <Link to={`/post/${post?._id}`}>
       <div className="bg-white border rounded shadow-md hover:shadow-2xl mx-auto duration-500 h-full">
-        <div className="p-5">
-          <div>
+        <div className="p-5 h-full flex flex-col">
+          <div className="flex flex-col flex-grow justify-between">
             <div className="flex items-center gap-4 my-4">
               <img
                 className="w-10 h-10 object-cover rounded-full"
@@ -43,7 +47,7 @@ const PostCard = ({ post }) => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <p>{post?.comments?.length}</p>
+              <p>{comments?.length}</p>
               <GoCommentDiscussion className="text-2xl"></GoCommentDiscussion>
             </div>
           </div>

@@ -5,19 +5,35 @@ import { GoCommentDiscussion } from "react-icons/go";
 import { useNavigate, useParams } from "react-router-dom";
 import useLoadSecureData from "../../../Hooks/useLoadSecureData";
 import LayoutContainer from "../../../Layout/LayoutComponent/LayoutContainer";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAuth from "../../../Hooks/useAuth";
+import { FacebookShareButton } from "react-share";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { toast } from "react-toastify";
+import CommentCard from "./CommentCard";
 
 const PostDetails = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisLiked, setIsDisLiked] = useState(false);
+
+  const { user } = useAuth();
+
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+
   const { id } = useParams();
   const postURL = `/post/${id}`;
   const { data: post, refetch } = useLoadSecureData(postURL);
+
+  const commentsByPostIdURL = `/find-comments-by-postId?postId=${id}`
+  const { data: comments, refetch:refetchComments } = useLoadSecureData(commentsByPostIdURL);
+
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const ref = useRef();
+
+  const pageUrl = `http://localhost:5173/post/${post?._id}`;
+  const shareUrl = `https://facebook.com/sharer.php?u=${pageUrl}`;
 
   useEffect(() => {
     if (post?.upVote.includes(user?.email)) {
@@ -75,6 +91,24 @@ const PostDetails = () => {
       }
     } else {
       navigate("/logIn");
+    }
+  };
+
+  const handleComment = async () => {
+    if (user?.email) {
+      const commentText = ref?.current?.value;
+      const commentInfo = {
+        comment: commentText,
+        email: user?.email,
+        photoURL: user?.photoURL,
+        postId: post?._id,
+      };
+      const res = await axiosSecure.post(`/comments`, commentInfo);
+      if (res.data.success) {
+        toast.success("You commented on this post.");
+        refetchComments()
+        ref.current.value = "";
+      }
     }
   };
 
@@ -143,9 +177,14 @@ const PostDetails = () => {
               </div>
               <div className="flex items-center gap-8">
                 <GoCommentDiscussion className="text-2xl cursor-pointer"></GoCommentDiscussion>
-                <PiShareFat className="text-2xl cursor-pointer"></PiShareFat>
+                <div className="cursor-pointer">
+                  <FacebookShareButton url={shareUrl} className="m-2">
+                    <PiShareFat className="text-2xl cursor-pointer"></PiShareFat>
+                  </FacebookShareButton>
+                </div>
               </div>
             </div>
+
             <div className="mt-10 flex items-center gap-4">
               <div>
                 <img
@@ -155,13 +194,22 @@ const PostDetails = () => {
                 />
               </div>
               <input
+                ref={ref}
                 type="text"
                 id="title"
                 className="block py-2.5 px-4 w-full mx-auto text-sm text-gray-900 bg-transparent border rounded-full border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder="Write an answer..."
                 required
               />
-              <VscSend className="cursor-pointer text-2xl"></VscSend>
+              <VscSend
+                onClick={handleComment}
+                className="cursor-pointer text-2xl"
+              ></VscSend>
+            </div>
+            <div className="mt-10">
+              {comments?.map((comment, idx) => (
+                <CommentCard key={idx} comment={comment}></CommentCard>
+              ))}
             </div>
           </div>
         </div>

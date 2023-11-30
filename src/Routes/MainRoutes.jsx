@@ -16,6 +16,7 @@ import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import MakeAnnouncement from "../Pages/Dashboard/MakeAnnouncement/MakeAnnouncement";
 import SearchPosts from "../Pages/Home/SearchPosts/SearchPosts";
 import PostDetails from "../Components/Shared/PostDetails/PostDetails";
+import PostComments from "../Pages/Dashboard/MyPosts/PostComments";
 
 const MainRoutes = createBrowserRouter([
   {
@@ -37,12 +38,12 @@ const MainRoutes = createBrowserRouter([
       },
       {
         path: "searchPosts",
-        element: <SearchPosts></SearchPosts>
+        element: <SearchPosts></SearchPosts>,
       },
       {
         path: "post/:id",
-        element: <PostDetails></PostDetails>
-      }
+        element: <PostDetails></PostDetails>,
+      },
     ],
   },
   {
@@ -74,6 +75,15 @@ const MainRoutes = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <MyPosts></MyPosts>
+          </PrivateRoutes>
+        ),
+      },
+
+      {
+        path: "postComments/:id",
+        element: (
+          <PrivateRoutes>
+            <PostComments></PostComments>
           </PrivateRoutes>
         ),
       },

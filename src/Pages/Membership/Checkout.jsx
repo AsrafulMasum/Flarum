@@ -100,7 +100,7 @@ const Checkout = () => {
           }}
         />
         <button
-          className="btn btn-sm btn-success px-4 my-4"
+          className="btn btn-sm btn-success px-4 my-4 text-white"
           type="submit"
           disabled={!stripe || !clientSecret}
         >
