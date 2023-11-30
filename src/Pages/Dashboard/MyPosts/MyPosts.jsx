@@ -4,21 +4,34 @@ import useLoadSecureData from "../../../Hooks/useLoadSecureData";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyPosts = () => {
   const { user } = useAuth();
   const postURL = `/posts-by-email/${user?.email}`;
   const { data: userPost, refetch } = useLoadSecureData(postURL);
 
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
 
   const handleDelete = async (id) => {
-    const res = await axiosSecure.delete(`/posts/${id}`)
-    if(res.data.success){
-      toast.success("Deleted")
-      refetch()
-    }
-  }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/posts/${id}`);
+        if (res.data.success) {
+          toast.success("Deleted");
+          refetch();
+        }
+      }
+    });
+  };
 
   return (
     <div>
@@ -59,13 +72,22 @@ const MyPosts = () => {
                 </td>
 
                 <td>
-                  <Link to={`/dashboard/postComments/${post?._id}`} className="btn btn-xs text-white bg-textColor hover:text-textColor duration-300">Comments</Link>
+                  <Link
+                    to={`/dashboard/postComments/${post?._id}`}
+                    className="btn btn-xs text-white bg-textColor hover:text-textColor duration-300"
+                  >
+                    Comments
+                  </Link>
                 </td>
 
                 <th>
-                  <button onClick={() => handleDelete(post?._id)} className="btn btn-outline btn-xs hover:bg-textColor duration-300">Delete</button>
+                  <button
+                    onClick={() => handleDelete(post?._id)}
+                    className="btn btn-outline btn-xs hover:bg-textColor duration-300"
+                  >
+                    Delete
+                  </button>
                 </th>
-
               </tr>
             ))}
           </tbody>

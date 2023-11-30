@@ -17,6 +17,7 @@ import MakeAnnouncement from "../Pages/Dashboard/MakeAnnouncement/MakeAnnounceme
 import SearchPosts from "../Pages/Home/SearchPosts/SearchPosts";
 import PostDetails from "../Components/Shared/PostDetails/PostDetails";
 import PostComments from "../Pages/Dashboard/MyPosts/PostComments";
+import ReportedComments from "../Pages/Dashboard/ReportedComments/ReportedComments";
 
 const MainRoutes = createBrowserRouter([
   {
@@ -104,6 +105,16 @@ const MainRoutes = createBrowserRouter([
           <PrivateRoutes>
             <AdminRoutes>
               <ManageUsers></ManageUsers>
+            </AdminRoutes>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "reportedComments",
+        element: (
+          <PrivateRoutes>
+            <AdminRoutes>
+              <ReportedComments></ReportedComments>
             </AdminRoutes>
           </PrivateRoutes>
         ),

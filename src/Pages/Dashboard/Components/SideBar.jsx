@@ -14,7 +14,7 @@ const SideBar = () => {
           <div className="flex flex-col gap-4">
           <Link to="/dashboard/admin">My Profile</Link>
           <Link to="/dashboard/manageUsers">Manage User</Link>
-          <Link to="/dashboard/myPosts">Reported Comments</Link>
+          <Link to="/dashboard/reportedComments">Reported Comments</Link>
           <Link to="/dashboard/makeAnnouncement">Make Announcement</Link>
         </div>
         ) : (

@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useLoadSecureData from "../../../Hooks/useLoadSecureData";
 import { RiAdminLine } from "react-icons/ri";
@@ -8,14 +9,31 @@ const ManageUsers = () => {
 
   const axiosSecure = useAxiosSecure();
 
-  const handleMakeUser = async (email) => {
+  const handleMakeUser = (email, name) => {
     const userInfo = {
       role: "admin",
     };
-    const res = await axiosSecure.put(`/users/${email}`, userInfo);
-    if(res.data.modifiedCount){
-      refetch()
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: `You want to make ${name} admin!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, make admin!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.put(`/users/${email}`, userInfo);
+        if (res.data.modifiedCount) {
+          refetch();
+          Swal.fire({
+            title: "Promoted!",
+            text: `${name} has been promoted to admin.`,
+            icon: "success",
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -50,7 +68,7 @@ const ManageUsers = () => {
                 <td>
                   {user?.role === "user" && (
                     <button
-                      onClick={() => handleMakeUser(user?.email)}
+                      onClick={() => handleMakeUser(user?.email,user?.name)}
                       title="Make Admin"
                       className="btn btn-xs text-white bg-textColor hover:text-textColor duration-300"
                     >
