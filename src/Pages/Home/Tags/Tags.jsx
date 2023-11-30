@@ -13,23 +13,32 @@ const Tags = () => {
   const { data: allTags } = useLoadPublicData(tagsURL);
   return (
     <div>
-      <LayoutContainer>
-        <Swiper
-          slidesPerView={3}
-          spaceBetween={30}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination]}
-          className="mySwiper"
-        >
+      <div className="hidden lg:block">
+        <LayoutContainer>
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={30}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination]}
+            className="mySwiper"
+          >
+            {allTags?.map((tag) => (
+              <SwiperSlide key={tag?._id}>
+                <TagsCard tag={tag}></TagsCard>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </LayoutContainer>
+      </div>
+      <div className="lg:hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {allTags?.map((tag) => (
-            <SwiperSlide key={tag?._id}>
-              <TagsCard tag={tag}></TagsCard>
-            </SwiperSlide>
+            <TagsCard key={tag?._id} tag={tag}></TagsCard>
           ))}
-        </Swiper>
-      </LayoutContainer>
+        </div>
+      </div>
     </div>
   );
 };

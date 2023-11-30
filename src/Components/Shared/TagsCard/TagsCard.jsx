@@ -8,7 +8,7 @@ const TagsCard = ({ tag }) => {
 
   return (
     <div>
-      <div className="max-w-sm my-10 bg-white rounded shadow-md hover:shadow-2xl mx-auto duration-500">
+      <div className="my-10 bg-white rounded shadow-md hover:shadow-2xl mx-auto duration-500">
         <div className="relative">
           <Link className="absolute top-3 left-3 py-1 px-3 bg-textColor rounded text-white flex items-center gap-1">
             <BiSolidMessageRounded className="text-lg"></BiSolidMessageRounded>{" "}

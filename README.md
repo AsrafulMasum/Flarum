@@ -23,4 +23,4 @@ Click here for the live website link: [https://forums-6b0ca.web.app](https://for
 
   * Admin can make another user admin.
 
-  * # Admin can see all the reported comments & can delete the reported comments.
+  # Admin can see all the reported comments & can delete the reported comments.
