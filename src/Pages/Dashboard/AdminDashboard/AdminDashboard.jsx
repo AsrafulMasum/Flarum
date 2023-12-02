@@ -12,14 +12,14 @@ const AdminDashboard = () => {
 
   const { data: adminData } = useLoadSecureData("/admin-data");
 
-  const { postCount, userCount, totalComments } = adminData || {}
+  const { postCount, userCount, totalCommentsCount } = adminData || {}
   // pie chart data
   const COLORS = ["#1D84B5", "#65B9ED", "#0A2239"];
 
   const data = [
     { name: "Posts", value: postCount },
     { name: "Users", value: userCount },
-    { name: "Comments", value: totalComments },
+    { name: "Comments", value: totalCommentsCount },
   ];
 
   const RADIAN = Math.PI / 180;
@@ -118,7 +118,7 @@ const AdminDashboard = () => {
         <div className="py-10 px-10 bg-textColor text-white text-2xl flex justify-center items-center gap-8 rounded-xl">
           <FaComments className="text-7xl"></FaComments>
           <div>
-            <p>{totalComments}</p>
+            <p>{totalCommentsCount}</p>
             <p>Comments</p>
           </div>
         </div>
