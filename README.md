@@ -4,23 +4,34 @@
 
 Click here for the live website link: [https://forums-6b0ca.web.app](https://forums-6b0ca.web.app)
 
+Click here for the server side code link: [https://github.com/AsrafulMasum/Flarum-server](https://github.com/AsrafulMasum/Flarum-server)
+
 # Some main features of my project are :
-  * Users can signUp & login to the website and logout from website.
 
-  * Users can search any category posts by tags & can see the post. 
+- Users can signUp & login to the website and logout from website.
 
-  * Users can add post, make like or dislike, comments & share post when they are logged in.
+- Users can search any category posts by tags & can see the post.
 
-  * Users can add up to 5 post.
+- Users can add post, make like or dislike, comments & share post when they are logged in.
 
-  * Users can be a member via pay a certain of amount & can add as much as post they want.
+- Users can add up to 5 post.
 
-  * Users can see their profile & some recent post they made, at the dashboard.
+- Users can be a member via pay a certain of amount & can add as much as post they want.
 
-  * Users can delete a post they made & see the comments & report to a comment.
+- Users can see their profile & some recent post they made, at the dashboard.
 
-  * Admin can make announcement , tags & see the stats of the website.
+- Users can delete a post they made & see the comments & report to a comment.
 
-  * Admin can make another user admin.
+- Admin can make announcement , tags & see the stats of the website.
 
-  # Admin can see all the reported comments & can delete the reported comments.
+- Admin can make another user admin.
+
+- Admin can see all the reported comments & can delete the reported comments.
+
+## 💻 Technologies that I used
+
+  <p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=js,tailwind,react,firebase,nodejs,mongodb,express" />
+  </a>
+</p>
