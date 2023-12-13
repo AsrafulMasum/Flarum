@@ -7,7 +7,7 @@ import useAuth from "../../Hooks/useAuth";
 import LayoutContainer from "../../Layout/LayoutComponent/LayoutContainer";
 import useLoadPublicData from "../../Hooks/useLoadPublicData";
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -15,7 +15,30 @@ const Navbar = () => {
   const { data: dbUser } = useLoadPublicData(userURL);
 
   const announcementsURL = "/announcement";
-  const { data: allAnnouncements } = useLoadPublicData(announcementsURL);
+  const { data: allAnnouncements, refetch } = useLoadPublicData(announcementsURL);
+
+  const [announcementCount, setAnnouncementCount] = useState(0)
+  const [oldAnnouncementCount, setOldAnnouncementCount] = useState(0)
+  const [newAnnouncementCount, setNewAnnouncementCount] = useState(0)
+
+  useEffect(() => {
+    setAnnouncementCount(allAnnouncements?.length)
+    refetch();
+  }, [announcementCount, refetch, allAnnouncements]);
+
+  useEffect(() => {
+    if(announcementCount > oldAnnouncementCount){
+      const newAnnouncements = announcementCount - oldAnnouncementCount
+      setNewAnnouncementCount(newAnnouncements)
+      setOldAnnouncementCount(announcementCount)
+    }
+  }, [announcementCount, oldAnnouncementCount]);
+
+  console.log(newAnnouncementCount);
+
+const handleNewAnnouncement = () => {
+  setNewAnnouncementCount(0)
+}
 
   // const notificationCountURL = "/announcement/count";
   // const { data: notificationCount } = useLoadPublicData(notificationCountURL);
@@ -34,11 +57,11 @@ const Navbar = () => {
         <div className="text-right">
           <Menu as="div" className="relative inline-block text-left">
             <NavLink>
-              <Menu.Button className="relative text-white ">
+              <Menu.Button onClick={handleNewAnnouncement} className="relative text-white ">
                 <IoMdNotifications className="text-2xl"></IoMdNotifications>
-                {allAnnouncements?.length && (
+                {newAnnouncementCount > 0 && (
                   <p className="absolute -top-2 -right-1 rounded-full bg-red-500 px-1 tew">
-                    {allAnnouncements?.length}
+                    {newAnnouncementCount}
                   </p>
                 )}
               </Menu.Button>
@@ -52,17 +75,18 @@ const Navbar = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
-                <div className="px-1 py-1 ">
+              <Menu.Items className="absolute right-0 mt-2 w-96 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+                <div className="px-1 py-4 space-y-2">
                   {
                     allAnnouncements?.map(announcement => <Menu.Item key={announcement?._id}>
                       {({ active }) => (
                         <button
                           className={`${
-                            active ? "bg-violet-500 text-white" : "text-gray-900"
-                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            active ? "bg-primary text-white flex items-center gap-4" : "text-gray-900"
+                          } group flex w-full items-center rounded-md px-2 py-2 text-sm gap-4`}
                         >
-                          Edit
+                          <img className="w-10 rounded-full" src={announcement?.photoURL} alt="" />
+                          <p>{announcement?.title}</p>
                         </button>
                       )}
                     </Menu.Item>)

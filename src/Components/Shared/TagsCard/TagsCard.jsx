@@ -2,9 +2,20 @@ import PropTypes from "prop-types";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { BiSolidMessageRounded } from "react-icons/bi";
 import { IoIosChatbubbles } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const TagsCard = ({ tag }) => {
+
+  const axiosPublic = useAxiosPublic()
+  const navigate = useNavigate()
+
+  const handlePostByTags = async () => {
+    const res = await axiosPublic.get(`/search-by-tags?tags=${tag?.tagsName}`);
+    if(res.data){
+      navigate("/searchPosts", { state: { data: res.data } })
+    }
+  }
 
   return (
     <div>
@@ -31,9 +42,9 @@ const TagsCard = ({ tag }) => {
             <p className="mb-3 font-normal text-gray-700">
               {tag?.description}
             </p>
-            <div className="cursor-pointer">
+            <Link onClick={handlePostByTags} className="cursor-pointer">
               <FaArrowAltCircleRight className="text-3xl"></FaArrowAltCircleRight>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

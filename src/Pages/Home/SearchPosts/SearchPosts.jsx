@@ -15,7 +15,7 @@ const SearchPosts = () => {
   return (
     <div>
       {searchPosts.length ? (
-        <div className="pt-16">
+        <div className="pb-20 pt-40">
           <LayoutContainer>
             <Swiper
               slidesPerView={3}
