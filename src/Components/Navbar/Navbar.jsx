@@ -34,7 +34,7 @@ const Navbar = () => {
     }
   }, [announcementCount, oldAnnouncementCount]);
 
-  console.log(newAnnouncementCount);
+  // console.log(newAnnouncementCount);
 
 const handleNewAnnouncement = () => {
   setNewAnnouncementCount(0)

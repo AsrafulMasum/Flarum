@@ -57,7 +57,7 @@ const LogIn = () => {
           <Lottie animationData={authGIF}></Lottie>
         </div>
         <div className="flex-1">
-          <form onSubmit={handleSubmit(onSubmit)} className="w-2/3 mx-auto">
+          <form onSubmit={handleSubmit(onSubmit)} className="lg:w-2/3 mx-auto">
             <input
               {...register("email", { required: true })}
               className="w-full h-11 outline-none px-5 bg-white border border-[#D0D0D0] rounded text-sm"
