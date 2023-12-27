@@ -7,27 +7,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
-import { useState } from "react";
+
 
 const SearchPosts = () => {
   const location = useLocation();
   const searchPosts = location.state.data;
-
-  const [slidesPerView, setSlidesPerView] = useState(getSlidesPerView());
-
-  function getSlidesPerView() {
-    if (window.innerWidth < 768) {
-      return 1;
-    } else if (window.innerWidth < 1024) {
-      return 2;
-    } else {
-      return 3;
-    }
-  }
-
-  window.addEventListener('resize', () => {
-    setSlidesPerView(getSlidesPerView());
-  });
 
   return (
     <div>
@@ -35,13 +19,12 @@ const SearchPosts = () => {
         <div className="pb-20 pt-40">
           <LayoutContainer>
             <Swiper
-              slidesPerView={slidesPerView}
+              slidesPerView={3}
               spaceBetween={30}
               pagination={{
                 clickable: true,
               }}
               modules={[Pagination]}
-              className="mySwiper"
             >
               {searchPosts?.map((post) => (
                 <SwiperSlide key={post?._id}>
